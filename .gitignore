@@ -1,0 +1,5 @@
+# GoLand
+.idea
+
+# contents of the mounted MySQL directory
+mysql/storage/*

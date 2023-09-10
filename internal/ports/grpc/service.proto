@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option go_package = "libraryService/internal/ports/grpc";
+
+service LibraryService {
+  rpc GetBooksByAuthorName(BooksByAuthorNameRequest) returns (BooksResponse) {}
+  rpc GetAuthorsByBookTitle(AuthorsByBookTitleRequest) returns (AuthorsResponse) {}
+}
+
+message BooksByAuthorNameRequest {
+  string author_name = 1;
+}
+
+message AuthorsByBookTitleRequest {
+  string title = 1;
+}
+
+message BooksResponse {
+  repeated Book books = 1;
+}
+
+message Book {
+  int32 id = 1;
+  string title = 2;
+  int32 page_count = 3;
+  int32 publishing_year = 4;
+}
+
+message AuthorsResponse {
+  repeated Author authors = 1;
+}
+
+message Author {
+  int32 id = 1;
+  string name = 2;
+  int32 book_count = 3;
+  string birth_date = 4;
+}
