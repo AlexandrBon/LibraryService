@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/go-sql-driver/mysql v1.7.1
+	github.com/hashicorp/golang-lru/v2 v2.0.6
 	github.com/joho/godotenv v1.5.1
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/sync v0.3.0

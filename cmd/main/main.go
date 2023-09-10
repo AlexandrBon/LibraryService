@@ -6,6 +6,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	LibraryApp "libraryService/internal/libraryApp"
 	grpcPort "libraryService/internal/ports/grpc"
+	cache2 "libraryService/internal/storage/cache"
 	"libraryService/internal/storage/mysql"
 	"log"
 	"net"
@@ -36,11 +37,15 @@ func main() {
 		}
 	})
 
-	storage, err := mysql.NewStorage()
+	mysqlStorage, err := mysql.NewStorage()
 	if err != nil {
 		log.Fatal(err)
 	}
-	grpcServer := grpcPort.NewGRPCServer(lis, LibraryApp.NewLibraryApp(storage))
+	cache, err := cache2.NewStorage(mysqlStorage)
+	if err != nil {
+		log.Fatal(err)
+	}
+	grpcServer := grpcPort.NewGRPCServer(lis, LibraryApp.NewLibraryApp(cache))
 
 	eg.Go(func() error {
 		log.Printf("starting server, listening on %s\n", port)

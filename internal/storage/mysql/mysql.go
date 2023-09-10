@@ -3,22 +3,37 @@ package mysql
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"libraryService/internal/entity"
+	"libraryService/internal/storage"
 	"log"
+	"os"
+	"strconv"
+	"time"
 )
 
 type Storage struct {
 	db *sql.DB
 }
 
-func NewStorage() (Storage, error) {
+func NewStorage() (storage.IStorage, error) {
 	db, err := sql.Open("mysql", GetDefaultConfig())
 	if err != nil {
 		return Storage{}, err
 	}
-	db.SetConnMaxLifetime(100)
-	db.SetMaxIdleConns(10)
+	d, err := strconv.Atoi(os.Getenv("MYSQL_CONN_MAX_LIFETIME"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Print(time.Duration(d) * time.Millisecond)
+	db.SetConnMaxLifetime(time.Duration(d) * time.Millisecond)
+	n, err := strconv.Atoi(os.Getenv("MYSQL_MAX_IDLE_CONNS"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	db.SetMaxIdleConns(n)
 
 	if err = db.Ping(); err != nil {
 		return Storage{}, err
