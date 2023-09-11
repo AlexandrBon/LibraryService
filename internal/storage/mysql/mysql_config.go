@@ -21,10 +21,11 @@ func GetDefaultConfig() string {
 	}
 
 	cfg := mysql.Config{
-		User:   os.Getenv("MYSQL_USER"),
-		Passwd: os.Getenv("MYSQL_PASSWORD"),
-		Net:    os.Getenv("MYSQL_NETWORK"),
-		DBName: os.Getenv("MYSQL_DATABASE"),
+		User:                 os.Getenv("MYSQL_USER"),
+		Passwd:               os.Getenv("MYSQL_PASSWORD"),
+		Net:                  os.Getenv("DB_NETWORK"),
+		DBName:               os.Getenv("MYSQL_DATABASE"),
+		AllowNativePasswords: true,
 	}
 
 	fmt.Println(cfg.FormatDSN())

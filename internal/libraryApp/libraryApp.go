@@ -9,6 +9,7 @@ import (
 
 var ErrBadRequest = fmt.Errorf("bad request")
 
+// App provides functions for getting authors/books by name/title
 type App interface {
 	GetBooksByAuthorName(ctx context.Context, name string) ([]entity.Book, error)
 	GetAuthorsByBookTitle(ctx context.Context, title string) ([]entity.Author, error)

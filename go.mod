@@ -12,6 +12,8 @@ require (
 	google.golang.org/protobuf v1.31.0
 )
 
+require github.com/golang/mock v1.6.0
+
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect

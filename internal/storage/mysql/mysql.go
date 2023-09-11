@@ -3,7 +3,6 @@ package mysql
 import (
 	"context"
 	"database/sql"
-	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"libraryService/internal/entity"
 	"libraryService/internal/storage"
@@ -22,14 +21,13 @@ func NewStorage() (storage.IStorage, error) {
 	if err != nil {
 		return Storage{}, err
 	}
-	d, err := strconv.Atoi(os.Getenv("MYSQL_CONN_MAX_LIFETIME"))
+	d, err := strconv.Atoi(os.Getenv("DB_CONN_MAX_LIFETIME"))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Print(time.Duration(d) * time.Millisecond)
 	db.SetConnMaxLifetime(time.Duration(d) * time.Millisecond)
-	n, err := strconv.Atoi(os.Getenv("MYSQL_MAX_IDLE_CONNS"))
+	n, err := strconv.Atoi(os.Getenv("DB_MAX_IDLE_CONNS"))
 	if err != nil {
 		log.Fatal(err)
 	}

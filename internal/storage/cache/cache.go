@@ -10,7 +10,7 @@ import (
 
 type Storage struct {
 	mainStorage storage.IStorage
-	cache       *lru.Cache[string, any]
+	cache       *lru.Cache[string, any] // this object is thread-safe, so we don't have data-race in concurrent env
 }
 
 func NewStorage(s storage.IStorage) (storage.IStorage, error) {

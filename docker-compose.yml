@@ -10,9 +10,9 @@ services:
     environment:
       PORT: 5700
     links:
-      - "db" # create an alias through which the service can connect to the database
+      - "db"
     ports:
-      - "5700:5700" # the service is available to users on first port
+      - "5700:5700"
     restart: always
 
   db:
@@ -24,7 +24,9 @@ services:
       - mysql.env
     expose:
       - "3306"
-    volumes:                             # Now this is unnecessary, since the tables are recreated every time.
-      - "./mysql/storage:/var/lib/mysql" # But it is important to remember when working with the database.
+    #ports:
+    #  - "3306:3306"
+    volumes:
+      - "./mysql/storage:/var/lib/mysql"
 
 
