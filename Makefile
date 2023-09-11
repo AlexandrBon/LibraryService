@@ -4,11 +4,11 @@ start-all:
 start-db:
 	docker-compose up -d --remove-orphans --build --force-recreate db
 
-start-service:
-	docker-compose up -d --remove-orphans --build --force-recreate library_service
+build:
+	go build -o app cmd/main/main.go
 
-build_and_run_service_locally:
-	go build -o app cmd/main/main.go && ./app
+run:
+	./app
 
 test:
 	go test -race ./...
