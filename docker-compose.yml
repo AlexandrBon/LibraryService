@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  library_service:
+    build:
+      context: .
+      dockerfile: service.Dockerfile
+    container_name: library_service
+    environment:
+      PORT: 5700
+    links:
+      - "db"
+    ports:
+      - "5700:5700"
+    restart: always
+
+  db:
+    build:
+      context: .
+      dockerfile: mysql.Dockerfile
+    container_name: test_db
+    env_file:
+      - mysql.env
+    expose:
+      - "3306"
+    #ports:
+    #  - "3306:3306"
+    volumes:
+      - "./mysql/storage:/var/lib/mysql"
+
+

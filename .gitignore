@@ -1,0 +1,9 @@
+# GoLand
+.idea
+
+# contents of the mounted MySQL directory
+mysql/storage/*
+!mysql/storage/.gitkeep
+
+# Go binary
+app
